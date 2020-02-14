@@ -17,7 +17,7 @@ public class TablaVerdad2 {
     public static void main(String[] args) {
         
         Interface ventana = new Interface();
-        //Operacion hacer = new Operacion();
+        //
     }
     
 }
