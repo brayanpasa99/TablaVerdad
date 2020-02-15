@@ -15,7 +15,8 @@ public class Operacion {
     String first_operator = "~p";
     String second_operator = "~q";
     String operation = "↔";
-    int fstOperator = 0;
+    int contador = 0;
+    int contadorColumnas = 0;
     boolean[] firsttable = new boolean[4];
     boolean[] secondtable = new boolean[4];
     boolean[] result = new boolean[4];
