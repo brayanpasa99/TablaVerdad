@@ -7,6 +7,8 @@ package tablaverdad2;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -168,8 +170,20 @@ public class Interface extends JFrame implements ActionListener {
             System.out.println("");
             System.out.println("");
         } else if (e.getSource() == saveresult) {
+            
+            ArrayList<boolean[]> listaactual = Operacion.getList();
+            boolean[] resultadoactual = Operacion.getResult();
+            System.out.println(Arrays.toString(Operacion.getResult()));
+            System.out.println(contadorAns);
+            
+            listaactual.add(contadorAns, resultadoactual);
+            
+            for (int i = 0; i < listaactual.size(); i++) {
 
-            Operacion.saveResult(contadorAns);
+            System.out.println(Arrays.toString(listaactual.get(i)));
+
+        }
+            
             contadorAns++;
 
         }

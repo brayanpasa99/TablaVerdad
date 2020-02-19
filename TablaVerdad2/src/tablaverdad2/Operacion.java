@@ -5,8 +5,8 @@
  */
 package tablaverdad2;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Hashtable;
 
 /**
  *
@@ -23,7 +23,7 @@ public class Operacion {
     boolean[] firsttable = new boolean[4];
     boolean[] secondtable = new boolean[4];
     boolean[] result = new boolean[4];
-    Hashtable<String, boolean[]> partialresults = new Hashtable<>();
+    ArrayList<boolean[]> partialresults = new ArrayList<>();
 
     public void ComprobarPrimerOperador() {
         switch (first_operator) {
@@ -117,22 +117,22 @@ public class Operacion {
         switch (operation) {
             case "↔":
                 for (int i = 0; i < 4; i++) {
-                    bicondicional(i);
+                    result[i] = bicondicional(i);
                 }
                 break;
             case "→":
                 for (int i = 0; i < 4; i++) {
-                    condicional(i);
+                    result[i] = condicional(i);
                 }
                 break;
             case "˄":
                 for (int i = 0; i < 4; i++) {
-                    conjuncion(i);
+                    result[i] = conjuncion(i);
                 }
                 break;
             case "˅":
                 for (int i = 0; i < 4; i++) {
-                    disyuncion(i);
+                    result[i] = disyuncion(i);
                 }
                 break;
             default:
@@ -140,7 +140,7 @@ public class Operacion {
         }
     }
 
-    private boolean[] bicondicional(int i) {
+    private boolean bicondicional(int i) {
 
         boolean[] resultaux1 = new boolean[4];
         boolean[] resultaux2 = new boolean[4];
@@ -148,42 +148,68 @@ public class Operacion {
         resultaux2[i] = !secondtable[i] || firsttable[i];
         result[i] = resultaux1[i] && resultaux2[i];
 
-        return result;
+        return result[i];
 
     }
 
-    private boolean[] condicional(int i) {
+    private boolean condicional(int i) {
 
         result[i] = !firsttable[i] || secondtable[i];
 
-        return result;
+        return result[i];
 
     }
 
-    private boolean[] conjuncion(int i) {
+    private boolean conjuncion(int i) {
 
         result[i] = firsttable[i] && secondtable[i];
 
-        return result;
+        return result[i];
 
     }
 
-    private boolean[] disyuncion(int i) {
+    private boolean disyuncion(int i) {
 
         result[i] = firsttable[i] || secondtable[i];
 
-        return result;
+        return result[i];
 
     }
 
     public void saveResult(int j) {
 
-        result[0]=false;
-        partialresults.put("ANS0", result);
-        result[0]=true;
-        partialresults.put("ANS1", result);
+        /*boolean[] auxresult;
+        auxresult = result;*/
+        partialresults.add(j, result);
+        /*auxresult[0] = false;
+        auxresult[1] = false;
+        auxresult[2] = false;
+        auxresult[3] = false;*/
 
-        System.out.println(Arrays.toString(partialresults.get("ANS0"))+" "+Arrays.toString(partialresults.get("ANS1")));
+        showPartialResults();
+
+    }
+
+    public boolean[] getResult() {
+
+        boolean[] resultlocal = result;
+        return resultlocal;    
+        
+    }
+    
+    public ArrayList<boolean[]> getList() {
+
+        return partialresults;    
+        
+    }
+
+    public void showPartialResults() {
+
+        for (int i = 0; i < partialresults.size(); i++) {
+
+            System.out.println(Arrays.toString(partialresults.get(i)));
+
+        }
 
     }
 
