@@ -15,9 +15,9 @@ import java.util.Arrays;
 //OPERADORES: →, ↔, ˄, ˅, ~.
 public class Operacion {
 
-    String first_operator = "~p";
-    String second_operator = "~q";
-    String operation = "↔";
+    String first_operator;
+    String second_operator;
+    String operation;
     int contador = 0;
     int contadorColumnas = 0;
     boolean[] firsttable = new boolean[4];
@@ -191,9 +191,11 @@ public class Operacion {
     }
 
     public boolean[] getResult() {
-
-        boolean[] resultlocal = result;
-        return resultlocal;    
+        
+        boolean[] resultlocal;    
+        resultlocal = result.clone();
+        
+        return resultlocal;
         
     }
     
