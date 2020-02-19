@@ -51,14 +51,13 @@ public class Operacion {
                 firsttable[2] = false;
                 firsttable[3] = true;
                 break;
-            case "ANS":
-                firsttable[0] = result[0];
-                firsttable[1] = result[1];
-                firsttable[2] = result[2];
-                firsttable[3] = result[3];
-                break;
             default:
-                System.out.println("Empiece con una expresión simple.");
+                String[] first_operator_parts = first_operator.split("-");
+                boolean[] requiredResult = partialresults.get(Integer.parseInt(first_operator_parts[1]));
+                firsttable[0] = requiredResult[0];
+                firsttable[1] = requiredResult[1];
+                firsttable[2] = requiredResult[2];
+                firsttable[3] = requiredResult[3];
                 break;
         }
 
@@ -95,15 +94,15 @@ public class Operacion {
                 secondtable[2] = false;
                 secondtable[3] = true;
                 break;
-            case "ANS":
-                secondtable[0] = result[0];
-                secondtable[1] = result[1];
-                secondtable[2] = result[2];
-                secondtable[3] = result[3];
-                break;
             default:
-                System.out.println("El segundo operador también debe ser una expresión simple.");
+                String[] second_operator_parts = second_operator.split("-");
+                boolean[] requiredResult = partialresults.get(Integer.parseInt(second_operator_parts[1]));
+                secondtable[0] = requiredResult[0];
+                secondtable[1] = requiredResult[1];
+                secondtable[2] = requiredResult[2];
+                secondtable[3] = requiredResult[3];
                 break;
+
         }
 
         System.out.print("Segundo operador: ");
@@ -191,18 +190,18 @@ public class Operacion {
     }
 
     public boolean[] getResult() {
-        
-        boolean[] resultlocal;    
+
+        boolean[] resultlocal;
         resultlocal = result.clone();
-        
+
         return resultlocal;
-        
+
     }
-    
+
     public ArrayList<boolean[]> getList() {
 
-        return partialresults;    
-        
+        return partialresults;
+
     }
 
     public void showPartialResults() {

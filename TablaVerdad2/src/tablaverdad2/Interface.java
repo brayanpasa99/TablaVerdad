@@ -43,25 +43,23 @@ public class Interface extends JFrame implements ActionListener {
 
         JFrame Cuadro = new JFrame();
 
-        Cuadro.setBounds(10, 10, 600, 300);
+        Cuadro.setBounds(10, 10, 1300, 300);
         Cuadro.setTitle("Tablas de verdad");
         lbFirst_operator.setBounds(20, 20, 200, 20);
         lbSecond_operator.setBounds(380, 20, 200, 20);
         lbOperator.setBounds(220, 20, 150, 20);
 
-        cbFirst_operator.setBounds(70, 50, 50, 20);
+        cbFirst_operator.setBounds(70, 50, 80, 20);
         cbFirst_operator.addItem("p");
         cbFirst_operator.addItem("q");
         cbFirst_operator.addItem("~p");
         cbFirst_operator.addItem("~q");
-        cbFirst_operator.addItem("ANS");
 
-        cbSecond_operator.setBounds(440, 50, 50, 20);
+        cbSecond_operator.setBounds(440, 50, 80, 20);
         cbSecond_operator.addItem("p");
         cbSecond_operator.addItem("q");
         cbSecond_operator.addItem("~p");
         cbSecond_operator.addItem("~q");
-        cbSecond_operator.addItem("ANS");
         cbSecond_operator.setSelectedIndex(1);
 
         cbOperator.setBounds(250, 50, 50, 20);
@@ -80,7 +78,7 @@ public class Interface extends JFrame implements ActionListener {
         tbResultados.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tbResultados.getTableHeader().setReorderingAllowed(false);
 
-        tbResultados.setBounds(20, 150, 530, 80);
+        tbResultados.setBounds(20, 150, 1200, 80);
 
         Cuadro.add(lbFirst_operator);
         Cuadro.add(cbFirst_operator);
@@ -170,20 +168,24 @@ public class Interface extends JFrame implements ActionListener {
             System.out.println("");
             System.out.println("");
         } else if (e.getSource() == saveresult) {
-            
+
             ArrayList<boolean[]> listaactual = Operacion.getList();
             boolean[] resultadoactual = Operacion.getResult();
             System.out.println(Arrays.toString(Operacion.getResult()));
             System.out.println(contadorAns);
-            
+
             listaactual.add(contadorAns, resultadoactual);
-            
-            for (int i = 0; i < listaactual.size(); i++) {
 
-            System.out.println(Arrays.toString(listaactual.get(i)));
+            cbFirst_operator.addItem("ANS-" + contadorAns);
+            cbSecond_operator.addItem("ANS-" + contadorAns);
 
-        }
-            
+            Operacion.showPartialResults();
+
+            /*for (int i = 0; i < listaactual.size(); i++) {
+
+                System.out.println(Arrays.toString(listaactual.get(i)));
+                
+            }*/
             contadorAns++;
 
         }
