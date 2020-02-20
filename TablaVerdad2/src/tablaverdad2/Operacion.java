@@ -24,6 +24,8 @@ public class Operacion {
     boolean[] secondtable = new boolean[4];
     boolean[] result = new boolean[4];
     ArrayList<boolean[]> partialresults = new ArrayList<>();
+    
+    int opcionnegar = 0;
 
     public void ComprobarPrimerOperador() {
         switch (first_operator) {
@@ -94,6 +96,15 @@ public class Operacion {
                 secondtable[2] = false;
                 secondtable[3] = true;
                 break;
+            case " ":
+                for (int i = 0; i < 4; i++){
+                    if (firsttable[i]==false){
+                        firsttable[i]=true;
+                    } else {
+                        firsttable[i]=false;
+                    }
+                }
+                break;
             default:
                 String[] second_operator_parts = second_operator.split("-");
                 boolean[] requiredResult = partialresults.get(Integer.parseInt(second_operator_parts[1]));
@@ -134,6 +145,11 @@ public class Operacion {
                     result[i] = disyuncion(i);
                 }
                 break;
+            case "~":
+                for (int i = 0; i < 4; i++) {
+                    result[i] = negar(i);
+                }
+                break;
             default:
                 break;
         }
@@ -146,6 +162,15 @@ public class Operacion {
         resultaux1[i] = !firsttable[i] || secondtable[i];
         resultaux2[i] = !secondtable[i] || firsttable[i];
         result[i] = resultaux1[i] && resultaux2[i];
+
+        return result[i];
+
+    }
+    
+    private boolean negar(int i) {
+
+        
+        result[i] = !result[i];
 
         return result[i];
 

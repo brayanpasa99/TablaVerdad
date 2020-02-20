@@ -32,12 +32,15 @@ public class Interface extends JFrame implements ActionListener {
 
     JButton sentdata = new JButton("Enviar los datos");
     JButton saveresult = new JButton("Guardar resultado");
+    JButton noresult = new JButton("Negar");
 
     Operacion Operacion = new Operacion();
 
     JTable tbResultados;
 
     DefaultTableModel model = new DefaultTableModel();
+
+    int condicionsecond = 0;
 
     public Interface() {
 
@@ -60,6 +63,7 @@ public class Interface extends JFrame implements ActionListener {
         cbSecond_operator.addItem("q");
         cbSecond_operator.addItem("~p");
         cbSecond_operator.addItem("~q");
+        cbSecond_operator.addItem(" ");
         cbSecond_operator.setSelectedIndex(1);
 
         cbOperator.setBounds(250, 50, 50, 20);
@@ -67,10 +71,12 @@ public class Interface extends JFrame implements ActionListener {
         cbOperator.addItem("→");
         cbOperator.addItem("˄");
         cbOperator.addItem("˅");
+        cbOperator.addItem("~");
         cbOperator.setSelectedIndex(3);
 
         sentdata.setBounds(80, 100, 200, 20);
         saveresult.setBounds(300, 100, 200, 20);
+        noresult.setBounds(520, 100, 200, 20);
 
         tbResultados = new JTable();
         tbResultados.setModel(model);
@@ -89,8 +95,10 @@ public class Interface extends JFrame implements ActionListener {
         Cuadro.add(sentdata);
         Cuadro.add(tbResultados);
         Cuadro.add(saveresult);
+        Cuadro.add(noresult);
 
         sentdata.addActionListener(this);
+        noresult.addActionListener(this);
         saveresult.addActionListener(this);
 
         Cuadro.setLayout(null);
@@ -118,49 +126,99 @@ public class Interface extends JFrame implements ActionListener {
             for (int i = 0; i < 4; i++) {
                 System.out.print(Operacion.result[i] + " ");
             }
+            
+            if (Operacion.operation == "~"){
+                condicionsecond = 1;
+            }
 
             if (Operacion.contador == 0) {
-                model.addColumn(Operacion.first_operator);
+
+                if (condicionsecond == 1) {
+
+                } else {
+                    model.addColumn(Operacion.first_operator);
+                }
                 model.addColumn(Operacion.operation);
-                model.addColumn(Operacion.second_operator);
+                
+                if (condicionsecond == 1) {
+
+                } else {
+                    model.addColumn(Operacion.second_operator);
+                }
+                
+                
 
                 Operacion.contadorColumnas = Operacion.contadorColumnas + 3;
-
-                model.addRow(new Object[]{Operacion.first_operator, Operacion.operation, Operacion.second_operator});
-
+                
+                if (condicionsecond == 1) {
+                    model.addRow(new Object[]{Operacion.first_operator, Operacion.operation, Operacion.second_operator});
+                } else {
+                    model.addRow(new Object[]{Operacion.first_operator, Operacion.operation, Operacion.second_operator});
+                }
+                
                 for (int i = 0; i < 4; i++) {
                     model.addRow(new Object[]{Operacion.firsttable[i], Operacion.result[i], Operacion.secondtable[i]});
                 }
 
                 Operacion.contador = Operacion.contador + 1;
-
+                
+                if (condicionsecond == 1){
+                    condicionsecond = 0;
+                }
+                
             } else {
-                model.addColumn(Operacion.first_operator);
+                
+                if (condicionsecond == 1) {
+                    
+                } else {
+                    model.addColumn(Operacion.first_operator);
+                }
+                
                 model.addColumn(Operacion.operation);
-                model.addColumn(Operacion.second_operator);
-
-                model.setValueAt(Operacion.first_operator, 0, Operacion.contadorColumnas);
-                model.setValueAt(Operacion.operation, 0, Operacion.contadorColumnas + 1);
-                model.setValueAt(Operacion.second_operator, 0, Operacion.contadorColumnas + 2);
-
-                for (int k = 0; k < 4; k++) {
-                    model.setValueAt(Operacion.firsttable[k], k + 1, Operacion.contadorColumnas);
+                
+                if (condicionsecond == 1) {
+                    
+                } else {
+                    model.addColumn(Operacion.second_operator);
                 }
-
-                Operacion.contadorColumnas = Operacion.contadorColumnas + 1;
-
-                for (int k = 0; k < 4; k++) {
-                    model.setValueAt(Operacion.result[k], k + 1, Operacion.contadorColumnas);
+                
+                if (condicionsecond == 1) {
+                    model.setValueAt(Operacion.operation, 0, Operacion.contadorColumnas);
+                } else {
+                    model.setValueAt(Operacion.first_operator, 0, Operacion.contadorColumnas);
+                    model.setValueAt(Operacion.operation, 0, Operacion.contadorColumnas + 1);
+                    model.setValueAt(Operacion.second_operator, 0, Operacion.contadorColumnas + 2);
                 }
+                
+                if (condicionsecond == 1) {
+                    for (int k = 0; k < 4; k++) {
+                        model.setValueAt(Operacion.result[k], k + 1, Operacion.contadorColumnas);
+                    }
+                } else {
+                    for (int k = 0; k < 4; k++) {
+                        model.setValueAt(Operacion.firsttable[k], k + 1, Operacion.contadorColumnas);
+                    }
 
-                Operacion.contadorColumnas = Operacion.contadorColumnas + 1;
+                    Operacion.contadorColumnas = Operacion.contadorColumnas + 1;
 
-                for (int k = 0; k < 4; k++) {
-                    model.setValueAt(Operacion.secondtable[k], k + 1, Operacion.contadorColumnas);
+                    for (int k = 0; k < 4; k++) {
+                        model.setValueAt(Operacion.result[k], k + 1, Operacion.contadorColumnas);
+                    }
+
+                    Operacion.contadorColumnas = Operacion.contadorColumnas + 1;
+
+                    for (int k = 0; k < 4; k++) {
+                        model.setValueAt(Operacion.secondtable[k], k + 1, Operacion.contadorColumnas);
+                    }
+
+                    Operacion.contadorColumnas = Operacion.contadorColumnas + 1;
                 }
-
-                Operacion.contadorColumnas = Operacion.contadorColumnas + 1;
-
+                
+                if (condicionsecond == 1){
+                    condicionsecond = 0;
+                }
+                
+                
             }
 
             model.fireTableDataChanged();
@@ -187,6 +245,8 @@ public class Interface extends JFrame implements ActionListener {
                 
             }*/
             contadorAns++;
+
+        } else if (e.getSource() == noresult) {
 
         }
     }
